@@ -8,27 +8,28 @@ use strict;
 use warnings;
 
 use Moose;
+use LWP::UserAgent;
 
-use URI;
+use WWW::NewsReach::Photo::Instance;
 
 has $_ => (
     is => 'ro',
-    isa => 'Int',
-) for qw( width height );
-
-has type => (
-    is => 'ro',
     isa => 'Str',
-); 
+) for qw( caption alt orientation );
 
-has url => (
+has id => (
     is => 'ro',
-    isa => 'URI',
+    isa => 'Int',
+);
+
+has instances => (
+    is => 'ro',
+    isa => 'ArrayRef[WWW::NewsReach::Photo::Instance]',
 );
 
 =head1 METHODS
 
-=head2 WWW::NewsReach::Photo->new_from_xml
+=head2 WWW::NewsReach::NewsItem::Photos->new_from_xml
 
 =cut
 
@@ -38,13 +39,15 @@ sub new_from_xml {
 
     my $self = {};
 
-    foreach (qw[ width height ]) {
+    foreach (qw[id caption htmlAlt orientation]) {
+        warn $_ . ' = ' . $xml->findnodes("//$_")->[0]->textContent;
         $self->{$_} = $xml->findnodes("//$_")->[0]->textContent;
     }
 
-    $self->{type} = $xml->findnodes("//type")->[0]->textContent;
-
-    $self->{url} = URI->new( $xml->findnodes("//url")->[0]->textContent );
+    foreach ( $xml->findnodes("//instance") ) {
+        push @{$self->{instances}},
+            WWW::NewsReach::Photo::Instance->new_from_xml( $_ );
+    }
 
     return $class->new( $self );
 }

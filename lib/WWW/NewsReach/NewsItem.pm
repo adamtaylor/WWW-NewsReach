@@ -11,6 +11,11 @@ use warnings;
 
 use Moose;
 
+use XML::LibXML;
+use LWP::UserAgent;
+
+use WWW::NewsReach::Photo;
+
 has $_ => (
     is => 'ro',
     isa => 'Str',
@@ -28,17 +33,17 @@ has id => (
 
 has photos => (
     is => 'ro',
-    isa => 'WWW::NewsReach::NewsItem::Photo',
+    isa => 'ArrayRef[WWW::NewsReach::Photo'],
 );
 
 has categories => (
     is => 'ro',
-    isa => 'WWW::NewsReach::NewsItem::Category',
+    isa => 'ArrayRef[WWW::NewsReach::Category]',
 );
 
 has comments => (
     is => 'ro',
-    isa => 'WWW::NewsReach::NewsItem::Comment',
+    isa => 'ArrayRef[WWW::NewsReach::Comment]',
 );
 
 =head1 METHODS
@@ -62,11 +67,45 @@ sub new_from_xml {
         $self->{$_} = $xml->findnodes("//$_")->[0]->textContent;
     }
 
-    $self->{photos} = WWW::NewsReach::NewsItem::Photo->new_from_xml(
-        $xml->findnodes("//photo/@href)->[0]
-    );
+    my $photo_xml = $class->_get_photo_xml( $xml );
+    foreach ( $photo_xml->findnodes('//photo') ) {
+        push @{$self->{photos}},
+            WWW::NewsReach::Photo->new_from_xml( $_ );
+    }
+
+    #$self->{categories} = WWW::NewsReach::NewsItem::Categories->new_from_xml(
+        #$xml->findnodes('//categories/@href')->[0]
+    #);
+
+    #$self->{comments} = WWW::NewsReach::NewsItem::Comments->new_from_xml(
+        #$xml->findnodes('//comments/@href')->[0]
+    #);
 
     return $class->new( $self );
+}
+
+sub _get_photo_xml {
+    my $class = shift;
+    my ( $xml ) = @_;
+
+    my $url = $xml->findnodes('//photos/@href')->[0]->textContent;
+
+    my $resp = $class->_request( $url );
+    my $photo_xml = XML::LibXML->new->parse_string( $resp );
+
+    return $photo_xml;
+}
+
+sub _request {
+    my $self    = shift;
+    my ( $url ) = @_;
+    
+    my $ua = LWP::UserAgent->new;
+    my $res = $ua->get( $url );
+
+    if ( $res->is_success ) {
+        return $res->content;
+    }
 }
 
 1;
