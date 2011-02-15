@@ -33,7 +33,7 @@ has id => (
 
 has photos => (
     is => 'ro',
-    isa => 'ArrayRef[WWW::NewsReach::Photo'],
+    isa => 'ArrayRef[WWW::NewsReach::Photo]',
 );
 
 has categories => (
