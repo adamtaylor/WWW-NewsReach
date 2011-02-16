@@ -36,7 +36,6 @@ sub new_from_xml {
     my $self = {};
 
     foreach (qw[id text name location]) {
-        warn $_ . ' = ' . $xml->findnodes("//$_")->[0]->textContent;
         $self->{$_} = $xml->findnodes("//$_")->[0]->textContent;
     }
 
