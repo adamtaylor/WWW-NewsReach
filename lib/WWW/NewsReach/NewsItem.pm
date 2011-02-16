@@ -95,22 +95,11 @@ sub _get_related_xml {
 
     my $url = $xml->findnodes("//$type/".'@href')->[0]->textContent;
 
-    my $resp = $class->_request( $url );
+    my $ua = WWW::NewsReach::Client->new;
+    my $resp = $ua->request( $url );
     my $related_xml = XML::LibXML->new->parse_string( $resp );
 
     return $related_xml;
-}
-
-sub _request {
-    my $self    = shift;
-    my ( $url ) = @_;
-    
-    my $ua = LWP::UserAgent->new;
-    my $res = $ua->get( $url );
-
-    if ( $res->is_success ) {
-        return $res->content;
-    }
 }
 
 1;

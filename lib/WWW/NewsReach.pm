@@ -26,6 +26,7 @@ use XML::LibXML;
 use Data::Dump qw( pp );
 
 use WWW::NewsReach::NewsItem;
+use WWW::NewsReach::Client;
 
 my $API_BASE = 'http://api.newsreach.co.uk/';
 
@@ -36,9 +37,9 @@ has api_key => (
 );
 
 has ua => (
-    is          => 'ro',
-    isa         => 'LWP::UserAgent',
-    lazy_build  => 1,
+    is => 'ro',
+    isa => 'WWW::NewsReach::Client',
+    lazy_build => 1,
 );
 
 has api_url => (
@@ -70,7 +71,7 @@ sub BUILD {
     my $self     = shift;
     my ( $args ) = @_;
 
-    my $resp = $self->_request( $self->api_url );
+    my $resp = $self->ua->request( $self->api_url );
     my $xp   = XML::LibXML->new->parse_string( $resp );
     # Use XPATH to find the element attributes from the XML response
     my $news_url       = $xp->findnodes('//news/@href')->[0]->textContent;
@@ -89,7 +90,7 @@ sub BUILD {
 sub _build_ua {
     my $self = shift;
 
-    return LWP::UserAgent->new;
+    return WWW::NewsReach::Client->new;
 }
 
 sub _build_api_url {
@@ -98,16 +99,6 @@ sub _build_api_url {
     return $API_BASE . $self->api_key;
 }
 
-sub _request {
-    my $self    = shift;
-    my ( $url ) = @_;
-
-    my $res = $self->ua->get( $url );
-
-    if ( $res->is_success ) {
-        return $res->content;
-    }
-}
 
 =head2 $nr->get_news();
 
@@ -121,7 +112,7 @@ to the list.
 sub get_news {
     my $self = shift;
 
-    my $resp = $self->_request( $self->news_url );
+    my $resp = $self->ua->request( $self->news_url );
 
     my $news;
     my $xp = XML::LibXML->new->parse_string( $resp );
@@ -140,7 +131,7 @@ sub _get_news_item_xml {
     my ( $id ) = @_;
 
     my $news_item_url = $self->news_url . $id;
-    my $resp = $self->_request( $news_item_url );
+    my $resp = $self->ua->request( $news_item_url );
     my $xml = XML::LibXML->new->parse_string( $resp );
 
     return $xml;
