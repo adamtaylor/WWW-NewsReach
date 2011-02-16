@@ -13,7 +13,7 @@ my $nr = WWW::NewsReach->new({
 
 my $news = $nr->get_news;
 
-# Loop through all the new datas and print the news, along with any photos,
+# Loop through all the news data and print the news, along with any photos,
 # comments and categories associated.
 foreach ( @{$news} ) {
     print "\n\n---- News Item ----\n\n";
