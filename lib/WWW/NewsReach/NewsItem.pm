@@ -15,6 +15,8 @@ use XML::LibXML;
 use LWP::UserAgent;
 
 use WWW::NewsReach::Photo;
+use WWW::NewsReach::Category;
+use WWW::NewsReach::Comment;
 
 has $_ => (
     is => 'ro',
@@ -67,12 +69,23 @@ sub new_from_xml {
         $self->{$_} = $xml->findnodes("//$_")->[0]->textContent;
     }
 
-    my $photo_xml = $class->_get_photo_xml( $xml );
+    my $photo_xml = $class->_get_related_xml( $xml, 'photos' );
     foreach ( $photo_xml->findnodes('//photo') ) {
         push @{$self->{photos}},
             WWW::NewsReach::Photo->new_from_xml( $_ );
     }
 
+    my $comment_xml = $class->_get_related_xml( $xml, 'comments' );
+    foreach ( $photo_xml->findnodes('//commentListItem') ) {
+        push @{$self->{Comment}},
+            WWW::NewsReach::Comment->new_from_xml( $_ );
+    }
+
+    my $category_xml = $class->_get_related_xml( $xml, 'categories' );
+    foreach ( $photo_xml->findnodes('//category') ) {
+        push @{$self->{categories}},
+            WWW::NewsReach::Category->new_from_xml( $_ );
+    }
     #$self->{categories} = WWW::NewsReach::NewsItem::Categories->new_from_xml(
         #$xml->findnodes('//categories/@href')->[0]
     #);
@@ -84,16 +97,16 @@ sub new_from_xml {
     return $class->new( $self );
 }
 
-sub _get_photo_xml {
+sub _get_related_xml {
     my $class = shift;
-    my ( $xml ) = @_;
+    my ( $xml, $type ) = @_;
 
-    my $url = $xml->findnodes('//photos/@href')->[0]->textContent;
+    my $url = $xml->findnodes("//$type/".'@href')->[0]->textContent;
 
     my $resp = $class->_request( $url );
-    my $photo_xml = XML::LibXML->new->parse_string( $resp );
+    my $related_xml = XML::LibXML->new->parse_string( $resp );
 
-    return $photo_xml;
+    return $related_xml;
 }
 
 sub _request {
