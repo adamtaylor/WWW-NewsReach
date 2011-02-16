@@ -39,10 +39,11 @@ sub new_from_xml {
 
     my $self = {};
 
-    foreach (qw[id caption htmlAlt orientation]) {
-        warn $_ . ' = ' . $xml->findnodes("//$_")->[0]->textContent;
+    foreach (qw[id caption orientation]) {
         $self->{$_} = $xml->findnodes("//$_")->[0]->textContent;
     }
+
+    $self->{alt} = $xml->findnodes('//htmlAlt')->[0]->textContent;
 
     foreach ( $xml->findnodes("//instance") ) {
         push @{$self->{instances}},
