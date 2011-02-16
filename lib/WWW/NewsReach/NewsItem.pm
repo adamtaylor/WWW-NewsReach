@@ -75,23 +75,16 @@ sub new_from_xml {
     }
 
     my $comment_xml = $class->_get_related_xml( $xml, 'comments' );
-    foreach ( $photo_xml->findnodes('//commentListItem') ) {
+    foreach ( $comment_xml->findnodes('//commentListItem') ) {
         push @{$self->{Comment}},
             WWW::NewsReach::Comment->new_from_xml( $_ );
     }
 
     my $category_xml = $class->_get_related_xml( $xml, 'categories' );
-    foreach ( $photo_xml->findnodes('//category') ) {
+    foreach ( $category_xml->findnodes('//category') ) {
         push @{$self->{categories}},
             WWW::NewsReach::Category->new_from_xml( $_ );
     }
-    #$self->{categories} = WWW::NewsReach::NewsItem::Categories->new_from_xml(
-        #$xml->findnodes('//categories/@href')->[0]
-    #);
-
-    #$self->{comments} = WWW::NewsReach::NewsItem::Comments->new_from_xml(
-        #$xml->findnodes('//comments/@href')->[0]
-    #);
 
     return $class->new( $self );
 }
