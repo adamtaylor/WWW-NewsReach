@@ -1,13 +1,10 @@
 =head1 NAME
 
-WWW::NewsReach::NewsItem - Models a NewsItem in the NewsReach API
+WWW::NewsReach::NewsItem - Models a news item/article in the NewsReach API
 
 =cut
 
 package WWW::NewsReach::NewsItem;
-
-use strict;
-use warnings;
 
 use Moose;
 

@@ -1,11 +1,10 @@
 =head1 NAME
 
+WWW::NewsReach::Photo::Instance - Modes a photo instance in the NewsReach API.
+
 =cut
 
 package WWW::NewsReach::Photo::Instance;
-
-use strict;
-use warnings;
 
 use Moose;
 
@@ -19,7 +18,7 @@ has $_ => (
 has type => (
     is => 'ro',
     isa => 'Str',
-); 
+);
 
 has url => (
     is => 'ro',
@@ -29,6 +28,9 @@ has url => (
 =head1 METHODS
 
 =head2 WWW::NewsReach::Photo::Instance->new_from_xml
+
+Creates a new WWW::NewsReach::Photo::Instance object from the
+<instance> ... </instance> XML element returned from a NewsReach API request.
 
 =cut
 

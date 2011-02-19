@@ -1,14 +1,12 @@
 =head1 NAME
 
+WWW::NewsReach::Photo - Models a photo in the NewsReach API.
+
 =cut
 
 package WWW::NewsReach::Photo;
 
-use strict;
-use warnings;
-
 use Moose;
-use LWP::UserAgent;
 
 use WWW::NewsReach::Photo::Instance;
 
@@ -29,7 +27,10 @@ has instances => (
 
 =head1 METHODS
 
-=head2 WWW::NewsReach::NewsItem::Photos->new_from_xml
+=head2 WWW::NewsReach::Photo->new_from_xml
+
+Creates a new WWW::NewsReach::Photo object from the <photo> ... </photo> element
+returned in the XML from a NewsReach API request.
 
 =cut
 

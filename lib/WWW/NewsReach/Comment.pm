@@ -1,5 +1,7 @@
 =head1 NAME
 
+WWW::NewsReach::Comment - Models a comment in the NewsReach API.
+
 =cut
 
 package WWW::NewsReach::Comment;
@@ -25,7 +27,11 @@ has postDate => (
 );
 =head1 METHODS
 
-=head2 WWW::NewsReach::Category->new_from_xml
+=head2 WWW::NewsReach::Comment->new_from_xml
+
+Create a new WWW::NewsReach::Comment object from the
+<commentListItem> ... </commentListItem> element in the XML returned from a
+NewsReach API request.
 
 =cut
 

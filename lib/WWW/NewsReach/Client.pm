@@ -1,3 +1,13 @@
+=head1 NAME
+
+WWW::NewsReach::Client - LWP::UserAgent wrapper for making GET requests
+
+=head1 METHODS
+
+=head2 WWW::NewsReach::Client->new()
+
+=cut
+
 package WWW::NewsReach::Client;
 
 use Moose;
@@ -15,6 +25,12 @@ sub _build_ua {
 
     return LWP::UserAgent->new;
 }
+
+=head2 $client->request( $url )
+
+Make a LWP::UserAgent->get request to the specified URL and return the response
+
+=cut
 
 sub request {
     my $self    = shift;

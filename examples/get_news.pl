@@ -17,6 +17,7 @@ my $news = $nr->get_news;
 # comments and categories associated.
 foreach ( @{$news} ) {
     print "\n\n---- News Item ----\n\n";
+    print 'Date == ', $_->publish_date->ymd, "\n";
     print 'Headline == ', $_->headline, "\n";
     print 'Text == ', $_->text, "\n";
     print 'State == ', $_->state, "\n";
@@ -32,6 +33,7 @@ foreach ( @{$news} ) {
     my $comments = $_->comments;
     foreach ( @{$comments} ) {
         print "\n\n-- Comments --\n\n";
+        print 'Date == ', $_->date->ymd, "\n";
         print 'Text == ', $_->text, "\n";
         print 'Name == ', $_->name, "\n";
         print 'Location == ', $_->location, "\n";
