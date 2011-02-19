@@ -4,10 +4,10 @@
 
 package WWW::NewsReach::Comment;
 
-use strict;
-use warnings;
-
 use Moose;
+
+use DateTime;
+use DateTime::Format::ISO8601;
 
 has id => (
     is => 'ro',
@@ -39,7 +39,10 @@ sub new_from_xml {
         $self->{$_} = $xml->findnodes("//$_")->[0]->textContent;
     }
 
-    ## TODO findnodes("postDate");
+    my $dt_str    = $xml->findnodes("//postDate");
+    my $dt        = DateTime::Format::ISO8601->new->parse_datetime( $dt_str );
+    $self->{date} = $dt;
+
     return $class->new( $self );
 }
 
