@@ -19,7 +19,7 @@ has $_ => (
     isa => 'Str',
 ) for qw( text name location );
 
-has date => (
+has postDate => (
     is => 'ro',
     isa => 'DateTime',
 );
@@ -39,9 +39,9 @@ sub new_from_xml {
         $self->{$_} = $xml->findnodes("//$_")->[0]->textContent;
     }
 
-    my $dt_str    = $xml->findnodes("//postDate");
-    my $dt        = DateTime::Format::ISO8601->new->parse_datetime( $dt_str );
-    $self->{date} = $dt;
+    my $dt_str        = $xml->findnodes("//postDate");
+    my $dt            = DateTime::Format::ISO8601->new->parse_datetime( $dt_str );
+    $self->{postDate} = $dt;
 
     return $class->new( $self );
 }

@@ -28,7 +28,7 @@ has $_ => (
 has $_ => (
     is  => 'ro',
     isa => 'DateTime',
-) for qw(publish_date last_modified_date);
+) for qw(publishDate lastModifiedDate);
 
 has id => (
     is  => 'ro',
@@ -74,8 +74,7 @@ sub new_from_xml {
     foreach (qw[publishDate lastModifiedDate]) {
         my $dt_str    = $xml->findnodes("//$_")->[0]->textContent;
         my $dt        = $iso8601->parse_datetime( $dt_str );
-        my $key       = $class->_format_key( $_ );
-        $self->{$key} = $dt;
+        $self->{$_} = $dt;
     }
 
     my $photo_xml = $class->_get_related_xml( $xml, 'photos' );
@@ -110,18 +109,6 @@ sub _get_related_xml {
     my $related_xml = XML::LibXML->new->parse_string( $resp );
 
     return $related_xml;
-}
-
-sub _format_key {
-    my $class = shift;
-    my ( $key ) = @_;
-
-    my %formatted_keys = (
-        publishDate      => 'publish_date',
-        lastModifiedDate => 'last_modified_date',
-    );
-
-    return $formatted_keys{ $key };
 }
 
 1;
