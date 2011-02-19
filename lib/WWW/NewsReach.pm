@@ -1,7 +1,4 @@
-=head1 NAME
-
-WWW::NewsReach - Perl wrapper for the NewsReach API
-
+# ABSTRACT: Perl wrapper for the NewsReach API
 =head1 SYNOPSIS
 
 my $nr = WWW::NewsReach->new({ api_key => $api_key })

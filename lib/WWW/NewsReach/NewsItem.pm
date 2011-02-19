@@ -1,9 +1,4 @@
-=head1 NAME
-
-WWW::NewsReach::NewsItem - Models a news item/article in the NewsReach API
-
-=cut
-
+# ABSTRACT: Model a news article in the NewsReach API
 package WWW::NewsReach::NewsItem;
 
 use Moose;

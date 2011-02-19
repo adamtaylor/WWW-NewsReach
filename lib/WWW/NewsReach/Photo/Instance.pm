@@ -1,9 +1,4 @@
-=head1 NAME
-
-WWW::NewsReach::Photo::Instance - Modes a photo instance in the NewsReach API.
-
-=cut
-
+# ABSTRACT: Models a photo instance in the NewsReach API
 package WWW::NewsReach::Photo::Instance;
 
 use Moose;

@@ -1,9 +1,4 @@
-=head1 NAME
-
-WWW::NewsReach::Photo - Models a photo in the NewsReach API.
-
-=cut
-
+# ABSTRACT: Models a photo in the NewsReach API.
 package WWW::NewsReach::Photo;
 
 use Moose;

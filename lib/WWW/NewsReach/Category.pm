@@ -1,9 +1,4 @@
-=head1 NAME
-
-WWW::NewsReach::Category - Models a category in the NewsReach API.
-
-=cut
-
+# ABSTRACT: Models a category in the NewsReach API
 package WWW::NewsReach::Category;
 
 use Moose;

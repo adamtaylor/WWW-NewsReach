@@ -1,9 +1,4 @@
-=head1 NAME
-
-WWW::NewsReach::Comment - Models a comment in the NewsReach API.
-
-=cut
-
+# ABSTRACT: Models a comment in the NewsReach API
 package WWW::NewsReach::Comment;
 
 use Moose;
