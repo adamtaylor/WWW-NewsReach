@@ -1,3 +1,4 @@
+# ABSTRACT: LWP::UserAgent wrapper
 =head1 NAME
 
 WWW::NewsReach::Client - LWP::UserAgent wrapper for making GET requests
@@ -9,6 +10,8 @@ WWW::NewsReach::Client - LWP::UserAgent wrapper for making GET requests
 =cut
 
 package WWW::NewsReach::Client;
+
+our $VERSION = '0.02';
 
 use Moose;
 

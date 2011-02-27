@@ -1,6 +1,8 @@
 # ABSTRACT: Models a comment in the NewsReach API
 package WWW::NewsReach::Comment;
 
+our $VERSION = '0.02';
+
 use Moose;
 
 use DateTime;

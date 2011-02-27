@@ -12,7 +12,6 @@ my $nr = WWW::NewsReach->new({
 });
 
 my $news = $nr->get_news;
-
 # Loop through all the news data and print the news, along with any photos,
 # comments and categories associated.
 foreach ( @{$news} ) {
@@ -29,6 +28,12 @@ foreach ( @{$news} ) {
         print 'Caption == ', $_->caption, "\n";
         print 'Alt == ', $_->alt, "\n";
         print 'Orientation == ', $_->orientation, "\n";
+        foreach my $photo ( @{$_->instances} ) {
+            print 'Type == ', $photo->type, "\n";
+            print 'width == ', $photo->width, "\n";
+            print 'height == ', $photo->height, "\n";
+            print 'URL == ', $photo->url, "\n";
+        }
     }
     my $comments = $_->comments;
     foreach ( @{$comments} ) {
@@ -45,5 +50,3 @@ foreach ( @{$news} ) {
     }
 
 }
-
-
