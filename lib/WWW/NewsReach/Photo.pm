@@ -22,8 +22,6 @@ has instances => (
     isa => 'ArrayRef[WWW::NewsReach::Photo::Instance]',
 );
 
-our $VERSION = 0.02;
-
 =head1 METHODS
 
 =head2 WWW::NewsReach::Photo->new_from_xml
