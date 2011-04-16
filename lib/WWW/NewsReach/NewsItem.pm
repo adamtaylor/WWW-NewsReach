@@ -22,7 +22,7 @@ has $_ => (
 has $_ => (
     is  => 'ro',
     isa => 'DateTime',
-) for qw(publishDate lastModifiedDate);
+) for qw(publishDate lastModifiedDate publishTime);
 
 has id => (
     is  => 'ro',
@@ -72,6 +72,7 @@ sub new_from_xml {
         my $dt_str    = $xml->findnodes("//$_")->[0]->textContent;
         my $dt        = $iso8601->parse_datetime( $dt_str );
         $self->{$_} = $dt;
+        eval { $self->{publishTime} = $dt->hms }; # time is optional
     }
 
     my $photo_xml = $class->_get_related_xml( $xml, 'photos' );
