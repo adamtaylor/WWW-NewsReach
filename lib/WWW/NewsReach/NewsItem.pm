@@ -61,7 +61,10 @@ sub new_from_xml {
     my $self = {};
 
     foreach (qw[id headline text state extract]) {
-        $self->{$_} = $xml->findnodes("//$_")->[0]->textContent;
+        # extract is optional
+        eval {
+            $self->{$_} = $xml->findnodes("//$_")->[0]->textContent;
+        }
     }
 
     my $iso8601 = DateTime::Format::ISO8601->new;
