@@ -64,7 +64,7 @@ sub new_from_xml {
         # extract is optional
         eval {
             $self->{$_} = $xml->findnodes("//$_")->[0]->textContent;
-        }
+        };
     }
 
     my $iso8601 = DateTime::Format::ISO8601->new;
@@ -72,7 +72,7 @@ sub new_from_xml {
         my $dt_str    = $xml->findnodes("//$_")->[0]->textContent;
         my $dt        = $iso8601->parse_datetime( $dt_str );
         $self->{$_} = $dt;
-        eval { $self->{publishTime} = $dt->hms }; # time is optional
+        eval { $self->{publishTime} = $dt->hms; }; # time is optional
     }
 
     my $photo_xml = $class->_get_related_xml( $xml, 'photos' );
