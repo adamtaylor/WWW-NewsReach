@@ -11,7 +11,7 @@ WWW::NewsReach::Client - LWP::UserAgent wrapper for making GET requests
 
 package WWW::NewsReach::Client;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Moose;
 

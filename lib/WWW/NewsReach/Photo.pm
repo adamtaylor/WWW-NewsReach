@@ -1,7 +1,7 @@
 # ABSTRACT: Models a photo in the NewsReach API.
 package WWW::NewsReach::Photo;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Moose;
 

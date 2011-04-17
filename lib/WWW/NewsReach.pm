@@ -32,7 +32,7 @@ Return a new WWW::NewsReach object.
 
 package WWW::NewsReach;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Moose;
 
