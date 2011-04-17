@@ -1,15 +1,15 @@
 # ABSTRACT: Perl wrapper for the NewsReach API
 =head1 SYNOPSIS
 
-my $nr = WWW::NewsReach->new({ api_key => $api_key })
+    my $nr = WWW::NewsReach->new({ api_key => $api_key })
 
-my $news = $nr->get_news;
+    my $news = $nr->get_news;
 
-foreach ( @{$news} ) {
-    my $comments   = $news->comments;
-    my $categories = $news->categories;
-    my $photos     = $news->photos;
-}
+    foreach ( @{$news} ) {
+        my $comments   = $news->comments;
+        my $categories = $news->categories;
+        my $photos     = $news->photos;
+    }
 
 =head1 DESCRIPTION
 
