@@ -1,7 +1,7 @@
 # ABSTRACT: Models a category in the NewsReach API
 package WWW::NewsReach::Category;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use Moose;
 
